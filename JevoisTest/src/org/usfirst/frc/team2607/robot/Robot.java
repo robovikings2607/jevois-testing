@@ -60,7 +60,7 @@ public class Robot extends IterativeRobot {
 		} while (tryCount < 3);
 		
 		if (tryCount == 99) {
-			writeJeVois("listmappings\n");
+			writeJeVois("info\n");
 		}
 		loopCount = 0;
 	}
@@ -87,7 +87,7 @@ public class Robot extends IterativeRobot {
 		System.out.println("Starting CameraServer");
 		if (jevoisCam == null) {
 			jevoisCam = new UsbCamera("jevoisCam",0);
-			jevoisCam.setVideoMode(PixelFormat.kYUYV,320,286,30);
+			jevoisCam.setVideoMode(PixelFormat.kYUYV,320,254,60);
 			//jevoisCam.setPixelFormat(PixelFormat.kYUYV);
 			VideoMode vm = jevoisCam.getVideoMode();
 			System.out.println("jevoisCam pixel: " + vm.pixelFormat);
@@ -95,7 +95,7 @@ public class Robot extends IterativeRobot {
 			System.out.println("jevoisCam fps: " + vm.fps);
 		}
 		if (jevoisServer == null) {
-			jevoisServer = new MjpegServer("JeVoisServer", 1180);
+			jevoisServer = new MjpegServer("JeVoisServer", 1181);
 			jevoisServer.setSource(jevoisCam);
 		}
 		
