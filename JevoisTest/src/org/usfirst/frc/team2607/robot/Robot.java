@@ -80,7 +80,7 @@ public class Robot extends IterativeRobot {
 		solenoids = new Solenoids(0, 1, 2, 3, 4);
 				
 		timer = new Timer();
-				
+						
 		int tryCount = 0;
 		do {
 			try {
@@ -115,6 +115,11 @@ public class Robot extends IterativeRobot {
 			writeJeVois("info\n");
 		}
 		loopCount = 0;
+		
+		jevoisCam = CameraServer.getInstance().startAutomaticCapture();
+//		jevoisCam.setBrightness(50);
+//		jevoisCam.setExposureManual(50);
+//		jevoisCam.setFPS(60);
 	}
 		
 	public void checkJeVois() {
@@ -137,7 +142,6 @@ public class Robot extends IterativeRobot {
 		System.out.println("wrote " +  bytes + "/" + cmd.length() + " bytes");	
 		loopCount = 0;
 	}
-	
 	
 
 //		bp_MinDisplay = true;
@@ -248,6 +252,8 @@ public class Robot extends IterativeRobot {
 		inputs.readValues();
 
 		checkMinDisplay();	
+		
+		checkJeVois();
 
 		driveBase.arcadeDrive(inputs.d_LeftXAxis1, inputs.d_RightYAxis1);
 
