@@ -54,7 +54,7 @@ public class Robot extends IterativeRobot {
 	private SerialPort jevois = null;
 	private int loopCount;
 	private UsbCamera jevoisCam;
-	private MjpegServer jevoisServer;
+	
 
 
 	final String defaultAuton = "Default Auton";
@@ -96,7 +96,7 @@ public class Robot extends IterativeRobot {
 		
 		System.out.println("Starting CameraServer");
 		if (jevoisCam == null) {
-			jevoisCam = new UsbCamera("jevoisCam",0);
+			jevoisCam = CameraServer.getInstance().startAutomaticCapture();
 			jevoisCam.setVideoMode(PixelFormat.kYUYV,320,254,60);
 			//jevoisCam.setResolution(320, 254);
 			//jevoisCam.setPixelFormat(PixelFormat.kYUYV);
@@ -106,17 +106,13 @@ public class Robot extends IterativeRobot {
 			System.out.println("jevoisCam res: " + vm.width + "x" + vm.height);
 			System.out.println("jevoisCam fps: " + vm.fps);
 		}
-		if (jevoisServer == null) {
-			jevoisServer = new MjpegServer("JeVoisServer", 1181);
-			jevoisServer.setSource(jevoisCam);
-		}
 		
 		if (tryCount == 99) {
 			writeJeVois("info\n");
 		}
 		loopCount = 0;
 		
-		jevoisCam = CameraServer.getInstance().startAutomaticCapture();
+//		jevoisCam = CameraServer.getInstance().startAutomaticCapture(); moved farther up, inside if statement
 //		jevoisCam.setBrightness(50);
 //		jevoisCam.setExposureManual(50);
 //		jevoisCam.setFPS(60);
